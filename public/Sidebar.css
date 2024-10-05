@@ -48,18 +48,18 @@ body {
     margin-left: 3.125rem;
 }
 
-a{
+p a {
     text-decoration: none;
     color: var(--preto);
-    padding: 0.3rem 1rem;
-    transition: 0.3s;
+    padding: 0.4rem 1rem;
+    border-radius: 70px;
+    translate: 1px;
 }
 
-p a:hover {
+a:hover {
     background: var(--verde-escuro);
-    color: var(--branco);
-    border-radius: 700px;
-    translate: 1px;
+    color: var(--verde-claro);
+    transition: 0.3s;
 }
 
 .sidebar p {
