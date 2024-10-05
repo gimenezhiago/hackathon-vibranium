@@ -51,6 +51,15 @@ body {
 a{
     text-decoration: none;
     color: var(--preto);
+    padding: 0.3rem 1rem;
+    transition: 0.3s;
+}
+
+p a:hover {
+    background: var(--verde-escuro);
+    color: var(--branco);
+    border-radius: 700px;
+    translate: 1px;
 }
 
 .sidebar p {
