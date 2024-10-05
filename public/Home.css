@@ -35,9 +35,12 @@ body {
     align-items: center;
 }
 
-.container img {
+.imagem {
     height: 10rem;
     width: 10rem;
+    background-image: url(/public/imagem-drone.jpg);
+    background-size: cover;
+    background-position: center;
 }
 
 .container p {
