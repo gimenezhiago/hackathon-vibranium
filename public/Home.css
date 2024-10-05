@@ -36,11 +36,12 @@ body {
 }
 
 .imagem {
-    height: 10rem;
-    width: 10rem;
-    background-image: url(/public/imagem-drone.jpg);
+    height: 16rem;
+    width: 16rem;
+    background-image: url(/imagem-drone.jpg);
     background-size: cover;
     background-position: center;
+    border-radius: 100%;
 }
 
 .container p {
