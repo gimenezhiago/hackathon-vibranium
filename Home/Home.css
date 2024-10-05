@@ -30,8 +30,12 @@ body {
     align-items: center;
 }
 
-.container img,
-.container p {
+.container img {
     height: 10rem;
     width: 10rem;
+}
+
+.container p {
+    height: 10rem;
+    width: 25rem;
 }
