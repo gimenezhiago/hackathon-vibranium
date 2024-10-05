@@ -47,13 +47,11 @@ body {
 }
 
 .img_agro{
-    background-color: var(--cinza);
-    height: 80%;
-    width: 35%;
+    height: 20rem;
+    width: 20rem;
     display: flex;
     justify-content: center;
     border-radius: 100%;
-    border: 1.875rem solid var(--preto);
 }
 
 h1{
