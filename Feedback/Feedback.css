@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100..700&display=swap');
 
+@font-face {
+    font-family: 'Anton';
+    src: url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+}
 :root {
     --verde-claro: #D7FFF1;
     --verde-escuro: #55917F;
@@ -28,3 +32,50 @@ body {
     justify-content: space-around;
 }
 
+.Feedback{
+    background-color: var(--cinza);
+    height: 90%;
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 2rem;
+    border-radius: 50px;
+}
+
+.img_agro{
+    background-color: var(--cinza);
+    height: 90%;
+    width: 35%;
+    display: flex;
+    justify-content: center;
+}
+
+h1{
+    font-family: 'Anton';
+    color: var(--preto);
+    font-size: 31px;
+    align-self: center;
+}
+
+.form{
+    display: flex;
+    width: 5rem;
+    height: 70%;
+    
+}
+
+input{
+    padding-left: 0.3rem;
+    border: transparent;
+    border-bottom: 3px solid var(--verde-escuro);
+    font-size: 20px;
+    outline: none;
+}
+
+#feedback{
+    border: 3px solid var(--verde-escuro);
+    height: 5rem;
+    display: flex;
+}
