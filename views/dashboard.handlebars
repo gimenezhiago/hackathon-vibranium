@@ -1,5 +1,9 @@
+<script src="https://www.gstatic.com/charts/loader.js"></script>
 <link rel="stylesheet" href="/Dashboard.css">
 <div>
+    {{!-- {{#each data}}
+    <p>{{this.values.windSpeed}}</p>
+    {{/each}} --}}
 <div class="container-dashboard1"></div>
 <div class="container1">
     <div class="container-dashboard2"></div>
@@ -16,3 +20,120 @@
 <div class="container-dashboard8"></div>
 <div class="container-dashboard9"></div>
 </div>
+<script>
+    google.charts.load('current', {packages: ['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      // Define the chart to be drawn.
+      let data = new google.visualization.arrayToDataTable([
+        ['time', 'temp'],
+        {{#each data}}
+        ['{{this.time}}',{{this.values.temperature}}],
+        {{/each}}
+      ]);
+      const options = {
+          title: 'Company Performance',
+          curveType: 'function',
+          legend: { position: 'bottom' },
+          backgroundColor: 'transparent'
+        };
+      // Instantiate and draw the chart.
+      const chart = new google.visualization.LineChart(document.querySelector('.container-dashboard1'));
+      chart.draw(data, options);
+    }
+    google.charts.setOnLoadCallback(drawChart2);
+    function drawChart2() {
+      // Define the chart to be drawn.
+      let data = new google.visualization.arrayToDataTable([
+        ['time', 'precip'],
+        {{#each data}}
+        ['{{this.time}}',{{this.values.precipitationProbability}}],
+        {{/each}}
+      ]);
+      const options = {
+          title: 'Company Performance',
+          curveType: 'function',
+          legend: { position: 'bottom' },
+          backgroundColor: 'transparent'
+        };
+      // Instantiate and draw the chart.
+      const chart = new google.visualization.LineChart(document.querySelector('.container-dashboard2'));
+      chart.draw(data, options);
+    }
+    google.charts.setOnLoadCallback(drawChart3);
+    function drawChart3() {
+      // Define the chart to be drawn.
+      let data = new google.visualization.arrayToDataTable([
+        ['time', 'precip'],
+        {{#each data}}
+        ['{{this.time}}',{{this.values.humidity}}],
+        {{/each}}
+      ]);
+      const options = {
+          title: 'Company Performance',
+          curveType: 'function',
+          legend: { position: 'bottom' },
+          backgroundColor: 'transparent'
+        };
+      // Instantiate and draw the chart.
+      const chart = new google.visualization.LineChart(document.querySelector('.container-dashboard3'));
+      chart.draw(data, options);
+    }
+    google.charts.setOnLoadCallback(drawChart4);
+    function drawChart4() {
+      // Define the chart to be drawn.
+      let data = new google.visualization.arrayToDataTable([
+        ['time', 'precip'],
+        {{#each data}}
+        ['{{this.time}}',{{this.values.windSpeed}}],
+        {{/each}}
+      ]);
+      const options = {
+          title: 'Company Performance',
+          curveType: 'function',
+          legend: { position: 'bottom' },
+          backgroundColor: 'transparent'
+        };
+      // Instantiate and draw the chart.
+      const chart = new google.visualization.LineChart(document.querySelector('.container-dashboard4'));
+      chart.draw(data, options);
+    }
+    google.charts.setOnLoadCallback(drawChart5);
+    function drawChart5() {
+      // Define the chart to be drawn.
+      let data = new google.visualization.arrayToDataTable([
+        ['time', 'precip'],
+        {{#each data}}
+        ['{{this.time}}',{{this.values.cloudCover}}],
+        {{/each}}
+      ]);
+      const options = {
+          title: 'Company Performance',
+          curveType: 'function',
+          legend: { position: 'bottom' },
+          backgroundColor: 'transparent'
+        };
+      // Instantiate and draw the chart.
+      const chart = new google.visualization.LineChart(document.querySelector('.container-dashboard5'));
+      chart.draw(data, options);
+    }
+    google.charts.setOnLoadCallback(drawChart6);
+    function drawChart6() {
+      // Define the chart to be drawn.
+      let data = new google.visualization.arrayToDataTable([
+        ['time', 'precip'],
+        {{#each data}}
+        ['{{this.time}}',{{this.values.rainIntensity}}],
+        {{/each}}
+      ]);
+      const options = {
+          title: 'Company Performance',
+          curveType: 'function',
+          legend: { position: 'bottom' },
+          backgroundColor: 'transparent'
+        };
+      // Instantiate and draw the chart.
+      const chart = new google.visualization.LineChart(document.querySelector('.container-dashboard6'));
+      chart.draw(data, options);
+    }
+  </script>
