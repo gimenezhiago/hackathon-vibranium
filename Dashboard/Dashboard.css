@@ -32,15 +32,11 @@ body {
 .container .container-dashboard1 {
     height: 15rem;
     width: 30rem;
-    border: 2px solid black;
-    border-radius: 7px;
 }
 
 .container .container-dashboard2 {
     height: 10rem;
     width: 25rem;
-    border: 2px solid black;
-    border-radius: 7px;
 }
 
 .container .container-dashboard3 {
@@ -67,8 +63,6 @@ body {
 .container .container-dashboard6 {
     height: 10rem;
     width: 25rem;
-    border: 2px solid black;
-    border-radius: 7px;
     position: relative;
     bottom: 5rem;
 }
