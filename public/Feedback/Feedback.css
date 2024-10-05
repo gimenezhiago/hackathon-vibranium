@@ -93,7 +93,6 @@ input{
     display: flex;
     padding: 0.2rem;
     resize: none;
-    outline: none;
 }
 
 button{
