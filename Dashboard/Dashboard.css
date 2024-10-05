@@ -21,14 +21,84 @@ body {
 }
 
 .container {
-    height: 80vh;
+    height: 90vh;
     display: flex;
     flex-wrap: wrap;
+    background: var(--cinza);
+    padding: 28px;
+    gap: 1rem;
 }
 
-.container .container-dashboard {
-    height: 10rem;
-    width: 10rem;
+.container .container-dashboard1 {
+    height: 15rem;
+    width: 30rem;
     border: 2px solid black;
     border-radius: 7px;
+}
+
+.container .container-dashboard2 {
+    height: 10rem;
+    width: 25rem;
+    border: 2px solid black;
+    border-radius: 7px;
+}
+
+.container .container-dashboard3 {
+    height: 5rem;
+    width: 19rem;
+    border: 2px solid black;
+    border-radius: 7px;
+}
+
+.container .container-dashboard4 {
+    height: 14rem;
+    width: 20rem;
+    border: 2px solid black;
+    border-radius: 7px;
+}
+
+.container .container-dashboard5 {
+    height: 14rem;
+    width: 9rem;
+    border: 2px solid black;
+    border-radius: 7px;
+}
+
+.container .container-dashboard6 {
+    height: 10rem;
+    width: 25rem;
+    border: 2px solid black;
+    border-radius: 7px;
+    position: relative;
+    bottom: 5rem;
+}
+
+.container .container-dashboard7 {
+    height: 10rem;
+    width: 19rem;
+    border: 2px solid black;
+    border-radius: 7px;
+    position: relative;
+    bottom: 10rem;
+}
+
+.container .container-dashboard8 {
+    height: 13rem;
+    width: 19rem;
+    border: 2px solid black;
+    border-radius: 7px;
+    position: relative;
+    bottom: 14rem;
+    left: 57rem;
+
+}
+
+.container .container-dashboard9 {
+    height: 8rem;
+    width: 25rem;
+    border: 2px solid black;
+    border-radius: 7px;
+    position: relative;
+    bottom: 9rem;
+    left: 11rem;
 }
