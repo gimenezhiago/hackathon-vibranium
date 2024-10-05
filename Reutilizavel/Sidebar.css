@@ -4,20 +4,27 @@
     justify-content: space-between;
     align-items: center;
     background: var(--verde-claro);
-    padding: 0 50px;    
+    padding: 0px;  
 }
 
-a {
+.logo {
     text-decoration: none;
     color: var(--verde-escuro);
+    background-image: url(Logo.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 42px;
+    width: 150px;
+    margin-left: 3.125rem;
+}
+
+a{
+    text-decoration: none;
+    color: #212738;
 }
 
 .sidebar p {
     display: flex;
     gap: 2.1875rem;
-}
-
-.sidebar img {
-    height: 2.5rem;
-    width: 7rem;
+    margin-right: 50px;
 }
