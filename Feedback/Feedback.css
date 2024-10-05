@@ -75,6 +75,7 @@ label{
 }
 
 input{
+    width: 15rem;
     padding-left: 0.3rem;
     border: transparent;
     border-bottom: 3px solid var(--verde-escuro);
@@ -85,5 +86,21 @@ input{
 #feedback{
     border: 3px solid var(--verde-escuro);
     height: 5rem;
+    width: 15rem;
     display: flex;
+    padding-left: 0.2rem;
+}
+
+button{
+    border-radius: 10px;
+    border: transparent;
+    height: 2rem;
+    width: 4.5rem;
+    background-color: var(--verde-escuro);
+    cursor: pointer;;
+}
+
+p{
+    font-family: 'Anton';
+    color: var(--branco);
 }
