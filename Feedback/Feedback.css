@@ -21,7 +21,7 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-size: 22px;
+    font-size: 1.3rem;
     font-family: "Roboto Mono", monospace;
 }
 
@@ -52,13 +52,13 @@ body {
     display: flex;
     justify-content: center;
     border-radius: 100%;
-    border: 30px solid var(--preto);
+    border: 1.875rem solid var(--preto);
 }
 
 h1{
     font-family: 'Anton';
     color: var(--preto);
-    font-size: 31px;
+    font-size: 1.9375rem;
     align-self: center;
 }
 
@@ -92,7 +92,7 @@ input{
 }
 
 button{
-    border-radius: 10px;
+    border-radius: 0.625rem;
     border: transparent;
     height: 2rem;
     width: 4.5rem;
