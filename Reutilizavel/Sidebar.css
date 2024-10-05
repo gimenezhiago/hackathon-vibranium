@@ -1,0 +1,27 @@
+.sidebar {
+    height: 10vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--verde-claro);
+    padding: 0 50px;    
+}
+
+a {
+    text-decoration: none;
+    color: var(--verde-escuro);
+}
+
+.sidebar p {
+    display: flex;
+    gap: 2.1875rem;
+}
+
+.sidebar img {
+    height: 2.5rem;
+    width: 7rem;
+}
+
+a:hover {
+    
+}
