@@ -12,6 +12,12 @@
     --branco: #E6E6E6;
 }
 
+.feedback{
+    background: var(--verde-escuro);
+    color: var(--branco);
+    border-radius: 700px;
+}
+
 body {
     width: 100vw;
     height: 100vh;

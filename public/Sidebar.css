@@ -53,10 +53,10 @@ p a {
     color: var(--preto);
     padding: 0.4rem 1rem;
     border-radius: 70px;
-    translate: 1px;
+    transition: 0.3s;
 }
 
-a:hover {
+p a:hover {
     background: var(--verde-escuro);
     color: var(--verde-claro);
     transition: 0.3s;

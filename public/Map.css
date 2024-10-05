@@ -7,6 +7,12 @@
     --preto: #212738;
 }
 
+.map{
+    background: var(--verde-escuro);
+    color: var(--branco);
+    border-radius: 700px;
+}
+
 body {
     width: 100vw;
     height: 100vh;
