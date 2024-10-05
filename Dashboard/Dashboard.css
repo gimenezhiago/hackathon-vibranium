@@ -24,76 +24,80 @@ body {
 .container {
     height: 90vh;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     background: var(--cinza);
-    padding: 28px;
+    padding: 25px;
     gap: 1rem;
 }
 
 .container .container-dashboard1 {
     height: 15rem;
-    width: 30rem;
+    width: 33rem;
+    border: 2px solid black;
+    margin: 5px;
+}
+
+.container1 {
+    display: flex;
 }
 
 .container .container-dashboard2 {
-    height: 10rem;
-    width: 25rem;
+    height: 15rem;
+    width: 15.5rem;
+    border: 2px solid black;
+    margin: 5px;
+
 }
 
 .container .container-dashboard3 {
-    height: 5rem;
-    width: 19rem;
+    height: 15rem;
+    width: 17rem;
     border: 2px solid black;
     border-radius: 7px;
+    margin: 5px;
 }
 
 .container .container-dashboard4 {
-    height: 14rem;
+    height: 10rem;
     width: 20rem;
     border: 2px solid black;
     border-radius: 7px;
+    margin: 5px;
 }
 
 .container .container-dashboard5 {
-    height: 14rem;
-    width: 9rem;
+    height: 10rem;
+    width: 20rem;
     border: 2px solid black;
     border-radius: 7px;
+    margin: 5px;
 }
 
 .container .container-dashboard6 {
     height: 10rem;
-    width: 25rem;
-    position: relative;
-    bottom: 5rem;
+    width: 20rem;
+    border: 2px solid black;
+    margin: 5px;
 }
 
 .container .container-dashboard7 {
     height: 10rem;
-    width: 19rem;
+    width: 20rem;
     border: 2px solid black;
-    border-radius: 7px;
-    position: relative;
-    bottom: 10rem;
+    margin: 5px;
 }
 
 .container .container-dashboard8 {
-    height: 13rem;
-    width: 19rem;
+    height: 12rem;
+    width: 20rem;
     border: 2px solid black;
-    border-radius: 7px;
-    position: relative;
-    bottom: 14rem;
-    left: 57rem;
-
+    margin: 5px;
 }
 
 .container .container-dashboard9 {
     height: 8rem;
-    width: 25rem;
+    width: 20rem;
     border: 2px solid black;
-    border-radius: 7px;
-    position: relative;
-    bottom: 9rem;
-    left: 11rem;
+    margin: 5px;
 }
