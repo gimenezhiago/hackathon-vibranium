@@ -7,8 +7,9 @@
 :root {
     --verde-claro: #D7FFF1;
     --verde-escuro: #55917F;
-    --cinza: #E6E6E6;
+    --cinza: #CCCCCC;
     --preto: #212738;
+    --branco: #E6E6E6;
 }
 
 body {
@@ -30,6 +31,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-around;
+    background-color: var(--branco);
 }
 
 .Feedback{
@@ -38,18 +40,19 @@ body {
     width: 35%;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    padding: 2rem;
+    align-items: center;
+    justify-content: center;
     border-radius: 50px;
 }
 
 .img_agro{
     background-color: var(--cinza);
-    height: 90%;
+    height: 80%;
     width: 35%;
     display: flex;
     justify-content: center;
+    border-radius: 100%;
+    border: 30px solid var(--preto);
 }
 
 h1{
@@ -61,9 +64,14 @@ h1{
 
 .form{
     display: flex;
-    width: 5rem;
+    width: 100%;
     height: 70%;
-    
+    align-items: center;
+    justify-content: center;
+}
+
+label{
+    display: block;
 }
 
 input{
