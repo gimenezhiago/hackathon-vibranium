@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
 });
 app.get('/dashboard', (req, res) => {
     busca(req.query.lat?req.query.lat:50,req.query.long?req.query.long:50).then((result) => {
-        res.render('dashboard',{data: result})
+        res.render('dashboard',{data: result, lat: req.query.lat?req.query.lat:50, long: req.query.long?req.query.long:50})
         
     }).catch((err) => {
         
