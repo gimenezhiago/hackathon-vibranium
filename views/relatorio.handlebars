@@ -79,8 +79,12 @@
 
     function imprimirRelatorio() {
         document.getElementById('imprimirBtn').style.display = 'none';
+        document.getElementById('cultura').style.display = 'none';
+        document.getElementById('imprimirBtn').style.display = 'none';
+        document.getElementById('imprimirBtn').style.display = 'none';
         window.print();
-        document.getElementById('imprimirBtn').style.display = 'block'; // Retorna o botão após a impressão
+        document.getElementById('imprimirBtn').style.display = 'block';
+        document.getElementById('cultura').style.display = 'block'; // Retorna o botão após a impressão
     }
 
     atualizarRelatorio(24, 2, 65, 8, 40, 'Nenhuma');
