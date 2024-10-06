@@ -8,7 +8,7 @@
     --verde-claro: #D7FFF1;
     --verde-escuro: #55917F;
     --cinza: #CCCCCC;
-    --preto: #212738;
+    --preto: #21273857;
     --branco: #E6E6E6;
 }
 
@@ -42,7 +42,7 @@ body {
 
 .Feedback{
     background-color: var(--cinza);
-    height: 90%;
+    height: 100%;
     width: 35%;
     display: flex;
     flex-direction: column;
@@ -112,4 +112,14 @@ button{
 p{
     font-family: 'Anton';
     color: var(--branco);
+}
+
+footer {
+    border-top: 1px solid var(--preto);
+    height: 20vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 17px;
 }
