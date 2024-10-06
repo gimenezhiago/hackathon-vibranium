@@ -45,10 +45,10 @@ body {
     padding: 2rem;
 }
 
-<<<<<<< HEAD
+.page2 p{
 
-=======
->>>>>>> 9445d55385dccda8ab4b431e3d800f348a9ad571
+}
+
 .container {
     background: var(--cinza);
     height: 90vh;
