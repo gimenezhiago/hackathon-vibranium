@@ -37,10 +37,6 @@
     </div>
 </div>
 
-<div style="text-align: center; margin-top: 20px;">
-    <button id="imprimirBtn" onclick="imprimirRelatorio()">Imprimir Relatório</button>
-</div>
-
 <script>
     function atualizarRelatorio(temperatura, precipitacao, umidade, vento, nuvens, chuva) {
         document.getElementById('temperatura').innerText = `${temperatura}°C`;
@@ -75,17 +71,6 @@
         document.getElementById('plantioSugestao').innerText = sugestaoPlantio;
         document.getElementById('colheitaSugestao').innerText = sugestaoColheita;
         document.getElementById('pulverizacaoSugestao').innerText = sugestaoPulverizacao;
-    }
-
-    function imprimirRelatorio() {
-        document.getElementById('imprimirBtn').style.display = 'none';
-        document.getElementById('cultura').style.display = 'none';
-        document.getElementById('sidebar').style.display = 'none';
-        document.getElementById('imprimirBtn').style.display = 'none';
-        window.print();
-        document.getElementById('imprimirBtn').style.display = 'block';
-        document.getElementById('cultura').style.display = 'block';
-        document.getElementById('sidebar').style.display = 'flex';
     }
 
     atualizarRelatorio(24, 2, 65, 8, 40, 'Nenhuma');

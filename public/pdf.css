@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+body{
+    overflow-y: scroll;
+}
+
 .titulo{
     display: flex;
     align-items: center;
@@ -64,3 +68,10 @@ select {
     margin-top: 4rem;
     height: 2rem;
 }
+
+.container{
+    background-color: white;
+    overflow-y: visible;
+}
+
+
