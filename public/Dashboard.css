@@ -89,21 +89,7 @@ body {
 
 .container .container-dashboard7 {
     height: 10rem;
-    width: 20rem;
-    border: 2px solid black;
-    margin: 5px;
-}
-
-.container .container-dashboard8 {
-    height: 12rem;
-    width: 20rem;
-    border: 2px solid black;
-    margin: 5px;
-}
-
-.container .container-dashboard9 {
-    height: 8rem;
-    width: 20rem;
+    width: 12rem;
     border: 2px solid black;
     margin: 5px;
 }
