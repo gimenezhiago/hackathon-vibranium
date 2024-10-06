@@ -14,9 +14,10 @@ app.use(bodyParser.urlencoded({extended:false}));
 
 async function busca(lat, long) {
     console.log('fouhf')
-    const respone = await fetch(`https://api.tomorrow.io/v4/weather/forecast?location=${lat},${long}&apikey=VGoRO84RCL16s58fk6hCePorgDKGQrZp`)
-    const data = await respone.json()
-    return await data.timelines.hourly
+    // const respone = await fetch(`https://api.tomorrow.io/v4/weather/forecast?location=${lat},${long}&apikey=VGoRO84RCL16s58fk6hCePorgDKGQrZp`)
+    // const data = await respone.json()
+    // return await data.timelines.hourly
+    return null
 }
 app.get('/', (req, res) => {
     res.render('home')
