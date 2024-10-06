@@ -14,16 +14,16 @@ app.use(bodyParser.urlencoded({extended:false}));
 
 async function busca(lat, long) {
     console.log('fouhf')
-    // const respone = await fetch(`https://api.tomorrow.io/v4/weather/forecast?location=${lat},${long}&apikey=VGoRO84RCL16s58fk6hCePorgDKGQrZp`)
-    // const data = await respone.json()
-    // return await data.timelines.hourly
+    const respone = await fetch(`https://api.tomorrow.io/v4/weather/forecast?location=${lat},${long}&apikey=VGoRO84RCL16s58fk6hCePorgDKGQrZp`)
+    const data = await respone.json()
+    return await data.timelines.hourly
     return null
 }
 app.get('/', (req, res) => {
     res.render('home')
 });
 app.get('/dashboard', (req, res) => {
-    busca(req.query.lat,req.query.long).then((result) => {
+    busca(req.query.lat?req.query.lat:50,req.query.long?req.query.long:50).then((result) => {
         res.render('dashboard',{data: result})
         
     }).catch((err) => {
@@ -37,6 +37,9 @@ app.get('/map', (req, res) => {
     res.render('map')
 });
 
+app.get("/relatorio", (req,res)=>{
+    res.render("relatorio")
+})
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
