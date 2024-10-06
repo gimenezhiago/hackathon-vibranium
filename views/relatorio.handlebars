@@ -12,7 +12,9 @@
     <p class="parametro">Umidade do ar: <b id="umidade"></b></p>
     <p class="parametro">Velocidade do vento: <b id="vento"></b></p>
     <p class="parametro">Cobertura de nuvens: <b id="nuvens"></b></p>
-    <p class="parametro">Intensidade da chuva: <b id="chuva"></b></p>
+    <p class="parametro">Temperatura Máxima: <b id="tempMax"></b></p>
+    <p class="parametro">Temperatura Média: <b id="tempMed"></b></p>
+    <p class="parametro">Temperatura Mínima: <b id="tempMin"></b></p>
 </div>
 
 <select name="cultura" id="cultura" onchange="verificarCultura()">
@@ -82,6 +84,9 @@
         document.getElementById('vento').innerText = `${vento} km/h`;
         document.getElementById('nuvens').innerText = `${nuvens}%`;
         document.getElementById('chuva').innerText = `${chuva}`;
+        document.getElementById('tempMax').innerText = `${tempMax}`;
+        document.getElementById('tempMed').innerText = `${tempMed}`;
+        document.getElementById('tempMin').innerText = `${tempMindes}`;
     }
 
     function verificarCultura() {
