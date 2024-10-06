@@ -102,6 +102,7 @@ button{
     width: 8rem;
     background-color: var(--verde-escuro);
     cursor: pointer;
+    color: var(--branco);
 }
 
 button img {
