@@ -1,150 +1,223 @@
 <style>
-  .DB{
+  .DB {
     background: var(--verde-escuro);
     color: var(--branco);
-    border-radius: 700px;}
+    border-radius: 700px;
+  }
 </style>
 
 <script src="https://www.gstatic.com/charts/loader.js"></script>
 <link rel="stylesheet" href="/Dashboard.css">
+
 <div>
   <div class="container-dashboard1 graph"></div>
-    <div class="container1">
-        <div class="container-dashboard2 graph"></div>
-        <div class="container-dashboard3 graph"></div>
-    </div>
+  <div class="container1">
+    <div class="container-dashboard2 graph"></div>
+    <div class="container-dashboard3 graph"></div>
   </div>
-  <div>
-    <div class="container-dashboard4 graph"></div>
-    <div class="container-dashboard5 graph"></div>
-    <div class="container-dashboard6 graph"></div>
-  </div>
-  <div>
-    <div class="container-dashboard7 graph"></div>
-    <div class="container-dashboard8 graph"></div>
-    <div class="container-dashboard9 graph"></div>
 </div>
-    <button><p>Gerar relatório<img src="/Pdf.png" alt=""></p></button>
+<div>
+  <div class="container-dashboard4 graph"></div>
+  <div class="container-dashboard5 graph"></div>
+  <div class="container-dashboard6 graph"></div>
+</div>
+<div>
+  <div class="container-dashboard7 graph"></div>
+  <div class="container-dashboard8 graph"></div>
+  <div class="container-dashboard9 graph"></div>
+</div>
+
+<button><p>Gerar relatório<img src="/Pdf.png" alt=""></p></button>
+
 <script>
-    google.charts.load('current', {packages: ['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
-    function drawChart() {
-      // Define the chart to be drawn.
-      let data = new google.visualization.arrayToDataTable([
-        ['time', 'temp'],
-        {{#each data}}
-        ['{{this.time}}',{{this.values.temperature}}],
-        {{/each}}
-      ]);
-      const options = {
-          title: 'Temperatura(°C)',
-          curveType: 'function',
-          focusTarget: 'category',
-          legend: { position: 'bottom' },
-          backgroundColor: 'transparent'
-        };
-      // Instantiate and draw the chart.
-      const chart = new google.visualization.LineChart(document.querySelector('.container-dashboard1'));
-      chart.draw(data, options);
-    }
-    google.charts.setOnLoadCallback(drawChart2);
-    function drawChart2() {
-      // Define the chart to be drawn.
-      let data = new google.visualization.arrayToDataTable([
-        ['time', 'precip'],
-        {{#each data}}
-        ['{{this.time}}',{{this.values.precipitationProbability}}],
-        {{/each}}
-      ]);
-      const options = {
-          title: 'Probalidade de Precipitação',
-          curveType: 'function',
-          focusTarget: 'category',
-          legend: { position: 'bottom' },
-          backgroundColor: 'transparent'
-        };
-      // Instantiate and draw the chart.
-      const chart = new google.visualization.LineChart(document.querySelector('.container-dashboard2'));
-      chart.draw(data, options);
-    }
-    google.charts.setOnLoadCallback(drawChart3);
-    function drawChart3() {
-      // Define the chart to be drawn.
-      let data = new google.visualization.arrayToDataTable([
-        ['time', 'precip'],
-        {{#each data}}
-        ['{{this.time}}',{{this.values.humidity}}],
-        {{/each}}
-      ]);
-      const options = {
-          title: 'Umidade do Ar',
-          curveType: 'function',
-          focusTarget: 'category',
-          legend: { position: 'bottom' },
-          backgroundColor: 'transparent'
-        };
-      // Instantiate and draw the chart.
-      const chart = new google.visualization.LineChart(document.querySelector('.container-dashboard3'));
-      chart.draw(data, options);
-    }
-    google.charts.setOnLoadCallback(drawChart4);
-    function drawChart4() {
-      // Define the chart to be drawn.
-      let data = new google.visualization.arrayToDataTable([
-        ['time', 'precip'],
-        {{#each data}}
-        ['{{this.time}}',{{this.values.windSpeed}}],
-        {{/each}}
-      ]);
-      const options = {
-          title: 'Velocidade do Vento',
-          curveType: 'function',
-          focusTarget: 'category',
-          legend: { position: 'bottom' },
-          backgroundColor: 'transparent'
-        };
-      // Instantiate and draw the chart.
-      const chart = new google.visualization.LineChart(document.querySelector('.container-dashboard4'));
-      chart.draw(data, options);
-    }
-    google.charts.setOnLoadCallback(drawChart5);
-    function drawChart5() {
-      // Define the chart to be drawn.
-      let data = new google.visualization.arrayToDataTable([
-        ['time', 'precip'],
-        {{#each data}}
-        ['{{this.time}}',{{this.values.cloudCover}}],
-        {{/each}}
-      ]);
-      const options = {
-          title: 'Cobertura de Nuvens',
-          curveType: 'function',
-          legend: { position: 'bottom' },
-          focusTarget: 'category',
-          backgroundColor: 'transparent'
-        };
-      // Instantiate and draw the chart.
-      const chart = new google.visualization.LineChart(document.querySelector('.container-dashboard5'));
-      chart.draw(data, options);
-    }
-    google.charts.setOnLoadCallback(drawChart6);
-    function drawChart6() {
-      // Define the chart to be drawn.
-      let data = new google.visualization.arrayToDataTable([
-        ['time', 'precip'],
-        {{#each data}}
-        ['{{this.time}}',{{this.values.rainIntensity}}],
-        {{/each}}
-      ]);
-      const options = {
-          title: 'Acumulação de Chuva',
-          focusTarget: 'category',
-          curveType: 'function',
-          legend: { position: 'bottom' },
-          backgroundColor: 'transparent'
-        };
-      // Instantiate and draw the chart.
-      const chart = new google.visualization.LineChart(document.querySelector('.container-dashboard6'));
-      chart.draw(data, options);
-    }
-  </script>
+  function formatarDataBrasileira(dataISO) {
+    const data = new Date(dataISO);
+    const dia = data.getDate().toString().padStart(2, '0');
+    const mes = (data.getMonth() + 1).toString().padStart(2, '0');
+    const horas = data.getHours().toString().padStart(2, '0');
+    const minutos = data.getMinutes().toString().padStart(2, '0');
+    return `${dia}/${mes} ${horas}:${minutos}`;
+  }
+
+  google.charts.load('current', {packages: ['corechart']});
+  
+  // Gráfico 1 - Temperatura
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+    const data2 = [
+      ['time', { role: 'tooltip' }, 'Celsius(°C)'],
+      {{#each data}}
+      ['{{this.time}}', formatarDataBrasileira('{{this.time}}') + '\n' + '{{this.values.temperature}} °C', {{this.values.temperature}}],
+      {{/each}}
+    ];
+    let data = new google.visualization.arrayToDataTable(data2);
+    const options = {
+      title: 'Temperatura',
+      curveType: 'function',
+      focusTarget: 'category',
+      legend: { position: 'none' },
+      backgroundColor: 'transparent',
+      hAxis: {
+        title: `Agora - ${formatarDataBrasileira(data2[data2.length-1][0])}`,
+        titleTextStyle: { fontSize: 5 },
+        textStyle: { color: 'transparent' },
+      },
+      tooltip: {
+        isHtml: true,  // Permite HTML dentro do tooltip
+        ignoreBounds: true, 
+      },
+    };
+    const chart = new google.visualization.LineChart(document.querySelector('.container-dashboard1'));
+    chart.draw(data, options);
+  }
+
+  // Gráfico 2 - Probabilidade de Precipitação
+  google.charts.setOnLoadCallback(drawChart2);
+  function drawChart2() {
+    const data2 = [
+      ['time', { role: 'tooltip' }, 'Precipitação'],
+      {{#each data}}
+      ['{{this.time}}', formatarDataBrasileira('{{this.time}}') + '\n' + '{{this.values.precipitationProbability}} %', {{this.values.precipitationProbability}}],
+      {{/each}}
+    ];
+    let data = new google.visualization.arrayToDataTable(data2);
+    const options = {
+      title: 'Probabilidade de \n\nPrecipitação',
+      curveType: 'function',
+      focusTarget: 'category',
+      legend: { position: 'none' },
+      backgroundColor: 'transparent',
+      hAxis: {
+        title: `Agora - ${formatarDataBrasileira(data2[data2.length-1][0])}\n`,
+        titleTextStyle: { fontSize: 5 },
+        textStyle: { color: 'transparent' },
+      },
+      tooltip: {
+        isHtml: true,  // Permite HTML dentro do tooltip
+        ignoreBounds: true, 
+      },
+    };
+    const chart = new google.visualization.LineChart(document.querySelector('.container-dashboard2'));
+    chart.draw(data, options);
+  }
+
+  // Gráfico 3 - Umidade do Ar
+  google.charts.setOnLoadCallback(drawChart3);
+  function drawChart3() {
+    const data2 = [
+      ['time', { role: 'tooltip' }, 'Umidade'],
+      {{#each data}}
+      ['{{this.time}}', formatarDataBrasileira('{{this.time}}') + '\n' + '{{this.values.humidity}} %', {{this.values.humidity}}],
+      {{/each}}
+    ];
+    let data = new google.visualization.arrayToDataTable(data2);
+    const options = {
+      title: 'Umidade do Ar',
+      curveType: 'function',
+      focusTarget: 'category',
+      legend: { position: 'none' },
+      backgroundColor: 'transparent',
+      hAxis: {
+        title: `Agora - ${formatarDataBrasileira(data2[data2.length-1][0])}`,
+        titleTextStyle: { fontSize: 5 },
+        textStyle: { color: 'transparent' },
+      },
+      tooltip: {
+        isHtml: true,  // Permite HTML dentro do tooltip
+        ignoreBounds: true, 
+      },
+    };
+    const chart = new google.visualization.LineChart(document.querySelector('.container-dashboard3'));
+    chart.draw(data, options);
+  }
+
+  // Gráfico 4 - Velocidade do Vento
+  google.charts.setOnLoadCallback(drawChart4);
+  function drawChart4() {
+    const data2 = [
+      ['time', { role: 'tooltip' }, 'Velocidade do Vento'],
+      {{#each data}}
+      ['{{this.time}}', formatarDataBrasileira('{{this.time}}') + '\n' + '{{this.values.windSpeed}} km/h', {{this.values.windSpeed}}],
+      {{/each}}
+    ];
+    let data = new google.visualization.arrayToDataTable(data2);
+    const options = {
+      title: 'Velocidade do Vento',
+      curveType: 'function',
+      focusTarget: 'category',
+      legend: { position: 'none' },
+      backgroundColor: 'transparent',
+      hAxis: {
+        title: `Agora - ${formatarDataBrasileira(data2[data2.length-1][0])}`,
+        titleTextStyle: { fontSize: 5 },
+        textStyle: { color: 'transparent' },
+      },
+      tooltip: {
+        isHtml: true,  // Permite HTML dentro do tooltip
+        ignoreBounds: true, 
+      },
+    };
+    const chart = new google.visualization.LineChart(document.querySelector('.container-dashboard4'));
+    chart.draw(data, options);
+  }
+
+  // Gráfico 5 - Cobertura de Nuvens
+  google.charts.setOnLoadCallback(drawChart5);
+  function drawChart5() {
+    const data2 = [
+      ['time', { role: 'tooltip' }, 'Cobertura de Nuvens'],
+      {{#each data}}
+      ['{{this.time}}', formatarDataBrasileira('{{this.time}}') + '\n' + '{{this.values.cloudCover}} %', {{this.values.cloudCover}}],
+      {{/each}}
+    ];
+    let data = new google.visualization.arrayToDataTable(data2);
+    const options = {
+      title: 'Cobertura de Nuvens',
+      curveType: 'function',
+      focusTarget: 'category',
+      legend: { position: 'none' },
+      backgroundColor: 'transparent',
+      hAxis: {
+        title: `Agora - ${formatarDataBrasileira(data2[data2.length-1][0])}`,
+        titleTextStyle: { fontSize: 5 },
+        textStyle: { color: 'transparent' },
+      },
+      tooltip: {
+        isHtml: true,  // Permite HTML dentro do tooltip
+        ignoreBounds: true, 
+      },
+    };
+    const chart = new google.visualization.LineChart(document.querySelector('.container-dashboard5'));
+    chart.draw(data, options);
+  }
+
+  // Gráfico 6 - Acumulação de Chuva
+  google.charts.setOnLoadCallback(drawChart6);
+  function drawChart6() {
+    const data2 = [
+      ['time', { role: 'tooltip' }, 'Acumulação de Chuva'],
+      {{#each data}}
+      ['{{this.time}}', formatarDataBrasileira('{{this.time}}') + '\n' + '{{this.values.rainIntensity}} mm', {{this.values.rainIntensity}}],
+      {{/each}}
+    ];
+    let data = new google.visualization.arrayToDataTable(data2);
+    const options = {
+      title: 'Intensidade de Chuva',
+      curveType: 'function',
+      focusTarget: 'category',
+      legend: { position: 'none' },
+      backgroundColor: 'transparent',
+      hAxis: {
+        title: `Agora - ${formatarDataBrasileira(data2[data2.length-1][0])}`,
+        titleTextStyle: { fontSize: 5 },
+        textStyle: { color: 'transparent' },
+      },
+      tooltip: {
+        isHtml: true,  // Permite HTML dentro do tooltip
+        ignoreBounds: true, 
+      },
+    };
+    const chart = new google.visualization.LineChart(document.querySelector('.container-dashboard6'));
+    chart.draw(data, options);
+  }
+</script>
