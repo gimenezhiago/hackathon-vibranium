@@ -128,6 +128,8 @@ window.onload = function () {
                         addressItem.onclick = function() {
                             var latitude = parseFloat(result.lat);
                             var longitude = parseFloat(result.lon);
+                            console.log(document.getElementById('sidebar').querySelector('.DB'))
+                            document.getElementById('sidebar').querySelector('.DB').href = `/dashboard?lat=${latitude}&long=${longitude}`
 
                             addPin(latitude, longitude);
 
@@ -154,6 +156,7 @@ window.onload = function () {
         if (position) {
             var latitude = position.latitude;
             var longitude = position.longitude;
+            
             addPin(latitude, longitude);
         }
     });
