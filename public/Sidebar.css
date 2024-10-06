@@ -70,12 +70,27 @@ p a:hover {
 
 footer {
     border-top: transparent;
-    height: 20vh;
+    height: 30vh;
     width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 17px;
     background-color: var(--preto);
+}
+
+.info{
+    color: var(--branco);
+    font-size: 15px;
+    width: 60%;
+}
+
+.info a{
+    color: var(--branco);
+    font-size: 15px;
+}
+
+.info h2{
+    font-family: 'Roboto Mono';
+    font-size: 16px;
     color: var(--branco);
 }
