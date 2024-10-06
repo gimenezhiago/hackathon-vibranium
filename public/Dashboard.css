@@ -95,6 +95,15 @@ body {
     padding: 2rem 2rem;
 }
 
+.container .container-dashboard7 img {
+    height: 1.2rem;
+    width: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 button{
     border-radius: 0.625rem;
     border: transparent;
