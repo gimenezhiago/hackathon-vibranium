@@ -28,7 +28,7 @@ body {
 
 .page1{
     width: 100vw;
-    height: 100vh;
+    height: 90vh;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -42,7 +42,7 @@ body {
 .page2{
     width: 100vw;
     height: 80vh;
-    padding: 2rem;
+    padding: 8rem;
 }
 
 .container {
@@ -57,9 +57,8 @@ body {
 }
 
 .imagem {
-    height: 16rem;
-    width: 16rem;
-    max-width: 16rem;
+    height: 60vh;
+    width: 30vw;
     background-position: center;
     border-radius: 100%;
     display: block;
