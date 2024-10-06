@@ -80,11 +80,12 @@ h1{
     align-self: center;
 }
 
-.form{
+form{
     display: flex;
-    width: 100%;
+    width: 80%;
     height: 70%;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: center;
 }
 
@@ -94,7 +95,7 @@ label{
 
 input{
     height: 1.7rem;
-    width: 15rem;
+    width: 100%;
     padding-left: 0.3rem;
     border: transparent;
     border-bottom: 3px solid var(--verde-escuro);
@@ -105,8 +106,8 @@ input{
 #feedback{
     font-size: 0.8rem;
     border: 3px solid var(--verde-escuro);
-    height: 5rem;
-    width: 15rem;
+    height: 7rem;
+    width: 100%;
     display: flex;
     padding: 0.2rem;
     resize: none;
