@@ -1,7 +1,7 @@
-<link rel="stylesheet" href="pdf.css">
+<link rel="stylesheet" href="pdf.css"> 
 
 <div class="titulo">
-    <h1>Relatório de Parâmetros Climáticos</h1>
+    <h1>Relatório de Parâmetros Climáticos com dados atuais</h1>
 </div>
 <div class="hr">
     <hr>
@@ -39,19 +39,23 @@
 </div>
 
 <script>
-    const parametrosClimaticos = {
-        temperatura: 24,
-        precipitacao: 2,
-        umidade: 65,
-        vento: 8,
-        nuvens: 40,
-        chuva: 'Nenhuma'
-    };
+    let parametrosClimaticos = {};
+
+    function obterParametrosClimaticos() {
+        parametrosClimaticos = {
+            temperatura: 19,
+            precipitacao: 3,
+            umidade: 30,
+            vento: 11,
+            nuvens: 40,
+            chuva: "Leve"
+        };
+    }
 
     const epocas = {
-        milhoSafra: { plantioInicio: 9, plantioFim: 12, colheitaInicio: 3, colheitaFim: 6 },
-        milhoSafrinha: { plantioInicio: 1, plantioFim: 3, colheitaInicio: 6, colheitaFim: 8 },
-        soja: { plantioInicio: 10, plantioFim: 12, colheitaInicio: 3, colheitaFim: 5 }
+        milhoSafra: { plantioInicio: 8, plantioFim: 9, colheitaInicio: 3, colheitaFim: 6 },
+        milhoSafrinha: { plantioInicio: 1, plantioFim: 2, colheitaInicio: 6, colheitaFim: 8 },
+        soja: { plantioInicio: 9, plantioFim: 1, colheitaInicio: 3, colheitaFim: 5 }
     };
 
     function obterMesAtual() {
@@ -69,19 +73,28 @@
         return { plantioCerto, colheitaCerta };
     }
 
-    function atualizarRelatorio(temperatura, precipitacao, umidade, vento, nuvens, chuva) {
+    function atualizarRelatorio() {
+        const { temperatura, precipitacao, umidade, vento, nuvens, chuva } = parametrosClimaticos;
+
         document.getElementById('temperatura').innerText = `${temperatura}°C`;
         document.getElementById('precipitacao').innerText = `${precipitacao}mm`;
         document.getElementById('umidade').innerText = `${umidade}%`;
         document.getElementById('vento').innerText = `${vento} km/h`;
         document.getElementById('nuvens').innerText = `${nuvens}%`;
-        document.getElementById('chuva').innerText = chuva;
+        document.getElementById('chuva').innerText = `${chuva}`;
     }
 
     function verificarCultura() {
         const cultura = document.getElementById('cultura').value;
-        const { temperatura, precipitacao, umidade, vento } = parametrosClimaticos;
 
+        if (!cultura) {
+            document.getElementById('plantioSugestao').innerText = '';
+            document.getElementById('colheitaSugestao').innerText = '';
+            document.getElementById('pulverizacaoSugestao').innerText = '';
+            return;
+        }
+
+        const { temperatura, umidade, vento } = parametrosClimaticos;
         let sugestaoPlantio = '';
         let sugestaoColheita = '';
         let sugestaoPulverizacao = '';
@@ -90,68 +103,112 @@
 
         if (cultura === 'milhoSafra') {
             if (temperatura >= 18 && temperatura <= 30 && umidade >= 60 && vento < 10 && epoca.plantioCerto) {
-                sugestaoPlantio = "As condições são ideais para o plantio de Milho Safra.";
+                sugestaoPlantio = `As condições são ideais para o plantio de Milho Safra. 
+                <br>Temperatura atual: ${temperatura}°C (ideal: entre 18°C e 30°C). 
+                <br>Umidade atual: ${umidade}% (ideal: acima de 60%). 
+                <br>Velocidade do vento atual: ${vento} km/h (ideal: abaixo de 10 km/h). 
+                <br>Época de plantio: entre Agosto e Setembro.`;
             } else {
-                sugestaoPlantio = "As condições não são ideais para o plantio de Milho Safra ou não está na época certa.";
+                sugestaoPlantio = `As condições não são ideais para o plantio de Milho Safra. 
+                <br>Temperatura atual: ${temperatura}°C (ideal: entre 18°C e 30°C). 
+                <br>Umidade atual: ${umidade}% (ideal: acima de 60%). 
+                <br>Velocidade do vento atual: ${vento} km/h (ideal: abaixo de 10 km/h). 
+                <br>Época de plantio: entre Agosto e Setembro.`;
             }
 
             if (epoca.colheitaCerta) {
-                sugestaoColheita = "É uma boa época para colher o Milho Safra.";
+                sugestaoColheita = `É uma boa época para colher o Milho Safra. 
+                <br>Época de colheita: entre Março e Junho.`;
             } else {
-                sugestaoColheita = "Não está na época certa para colheita de Milho Safra.";
+                sugestaoColheita = `Não está na época certa para colheita de Milho Safra. 
+                <br>Época de colheita: entre Março e Junho.`;
             }
 
-            if (precipitacao < 5) {
-                sugestaoPulverizacao = "Condições favoráveis para irrigação no plantio de Milho Safra.";
+            if (vento < 10) {
+                sugestaoPulverizacao = `Condições ideais para pulverização. 
+                <br>Velocidade do vento atual: ${vento} km/h (ideal: abaixo de 10 km/h).`;
+            } else if (vento >= 10 && vento <= 20) {
+                sugestaoPulverizacao = `Cuidado: condições moderadas para pulverização devido à velocidade do vento. 
+                <br>Velocidade do vento atual: ${vento} km/h (ideal: abaixo de 10 km/h).`;
             } else {
-                sugestaoPulverizacao = "Não é necessário irrigar devido às boas condições de precipitação.";
-            }
-        }
-
-        if (cultura === 'milhoSafrinha') {
-            if (temperatura >= 15 && temperatura <= 28 && umidade >= 55 && vento < 15 && epoca.plantioCerto) {
-                sugestaoPlantio = "As condições são ideais para o plantio de Milho Safrinha.";
-            } else {
-                sugestaoPlantio = "As condições não são ideais para o plantio de Milho Safrinha ou não está na época certa.";
+                sugestaoPulverizacao = `Condições ruins para pulverização. 
+                <br>Velocidade do vento atual: ${vento} km/h (ideal: abaixo de 10 km/h).`;
             }
 
-            if (epoca.colheitaCerta) {
-                sugestaoColheita = "É uma boa época para colher o Milho Safrinha.";
+        } else if (cultura === 'milhoSafrinha') {
+            if (temperatura >= 20 && temperatura <= 28 && umidade >= 50 && vento < 10 && epoca.plantioCerto) {
+                sugestaoPlantio = `As condições são ideais para o plantio de Milho Safrinha. 
+                <br>Temperatura atual: ${temperatura}°C (ideal: entre 20°C e 28°C). 
+                <br>Umidade atual: ${umidade}% (ideal: acima de 50%). 
+                <br>Velocidade do vento atual: ${vento} km/h (ideal: abaixo de 10 km/h). 
+                <br>Época de plantio: entre Janeiro e Fevereiro.`;
             } else {
-                sugestaoColheita = "Não está na época certa para colheita de Milho Safrinha.";
-            }
-
-            if (precipitacao < 5) {
-                sugestaoPulverizacao = "Condições favoráveis para irrigação no plantio de Milho Safrinha.";
-            } else {
-                sugestaoPulverizacao = "Não é necessário irrigar devido às boas condições de precipitação.";
-            }
-        }
-
-        if (cultura === 'soja') {
-            if (temperatura >= 20 && temperatura <= 32 && umidade >= 60 && vento < 10 && epoca.plantioCerto) {
-                sugestaoPlantio = "As condições são ideais para o plantio de Soja.";
-            } else {
-                sugestaoPlantio = "As condições não são ideais para o plantio de Soja ou não está na época certa.";
+                sugestaoPlantio = `As condições não são ideais para o plantio de Milho Safrinha. 
+                <br>Temperatura atual: ${temperatura}°C (ideal: entre 20°C e 28°C). 
+                <br>Umidade atual: ${umidade}% (ideal: acima de 50%). 
+                <br>Velocidade do vento atual: ${vento} km/h (ideal: abaixo de 10 km/h). 
+                <br>Época de plantio: entre Janeiro e Fevereiro.`;
             }
 
             if (epoca.colheitaCerta) {
-                sugestaoColheita = "É uma boa época para colher a Soja.";
+                sugestaoColheita = `É uma boa época para colher o Milho Safrinha. 
+                <br>Época de colheita: entre Junho e Agosto.`;
             } else {
-                sugestaoColheita = "Não está na época certa para colheita de Soja.";
+                sugestaoColheita = `Não está na época certa para colheita de Milho Safrinha. 
+                <br>Época de colheita: entre Junho e Agosto.`;
             }
 
-            if (precipitacao < 5) {
-                sugestaoPulverizacao = "Condições favoráveis para irrigação no plantio de Soja.";
+            if (vento < 10) {
+                sugestaoPulverizacao = `Condições ideais para pulverização. 
+                <br>Velocidade do vento atual: ${vento} km/h (ideal: abaixo de 10 km/h).`;
+            } else if (vento >= 10 && vento <= 20) {
+                sugestaoPulverizacao = `Cuidado: condições moderadas para pulverização devido à velocidade do vento. 
+                <br>Velocidade do vento atual: ${vento} km/h (ideal: abaixo de 10 km/h).`;
             } else {
-                sugestaoPulverizacao = "Não é necessário irrigar devido às boas condições de precipitação.";
+                sugestaoPulverizacao = `Condições ruins para pulverização. 
+                <br>Velocidade do vento atual: ${vento} km/h (ideal: abaixo de 10 km/h).`;
+            }
+
+        } else if (cultura === 'soja') {
+            if (temperatura >= 22 && temperatura <= 30 && umidade >= 70 && vento < 10 && epoca.plantioCerto) {
+                sugestaoPlantio = `As condições são ideais para o plantio de Soja. 
+                <br>Temperatura atual: ${temperatura}°C (ideal: entre 22°C e 30°C). 
+                <br>Umidade atual: ${umidade}% (ideal: acima de 70%). 
+                <br>Velocidade do vento atual: ${vento} km/h (ideal: abaixo de 10 km/h). 
+                <br>Época de plantio: entre Setembro e Janeiro.`;
+            } else {
+                sugestaoPlantio = `As condições não são ideais para o plantio de Soja. 
+                <br>Temperatura atual: ${temperatura}°C (ideal: entre 22°C e 30°C). 
+                <br>Umidade atual: ${umidade}% (ideal: acima de 70%). 
+                <br>Velocidade do vento atual: ${vento} km/h (ideal: abaixo de 10 km/h). 
+                <br>Época de plantio: entre Setembro e Janeiro.`;
+            }
+
+            if (epoca.colheitaCerta) {
+                sugestaoColheita = `É uma boa época para colher a Soja. 
+                <br>Época de colheita: entre Março e Maio.`;
+            } else {
+                sugestaoColheita = `Não está na época certa para colheita de Soja. 
+                <br>Época de colheita: entre Março e Maio.`;
+            }
+
+            if (vento < 10) {
+                sugestaoPulverizacao = `Condições ideais para pulverização. 
+                <br>Velocidade do vento atual: ${vento} km/h (ideal: abaixo de 10 km/h).`;
+            } else if (vento >= 10 && vento <= 20) {
+                sugestaoPulverizacao = `Cuidado: condições moderadas para pulverização devido à velocidade do vento. 
+                <br>Velocidade do vento atual: ${vento} km/h (ideal: abaixo de 10 km/h).`;
+            } else {
+                sugestaoPulverizacao = `Condições ruins para pulverização. 
+                <br>Velocidade do vento atual: ${vento} km/h (ideal: abaixo de 10 km/h).`;
             }
         }
 
-        document.getElementById('plantioSugestao').innerText = sugestaoPlantio;
-        document.getElementById('colheitaSugestao').innerText = sugestaoColheita;
-        document.getElementById('pulverizacaoSugestao').innerText = sugestaoPulverizacao;
+        document.getElementById('plantioSugestao').innerHTML = sugestaoPlantio;
+        document.getElementById('colheitaSugestao').innerHTML = sugestaoColheita;
+        document.getElementById('pulverizacaoSugestao').innerHTML = sugestaoPulverizacao;
     }
 
-    atualizarRelatorio(parametrosClimaticos.temperatura, parametrosClimaticos.precipitacao, parametrosClimaticos.umidade, parametrosClimaticos.vento, parametrosClimaticos.nuvens, parametrosClimaticos.chuva);
+    obterParametrosClimaticos();
+    atualizarRelatorio();
 </script>
