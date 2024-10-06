@@ -1,1 +1,89 @@
 <link rel="stylesheet" href="/Map.css">
+<canvas id="canvasOne"></canvas>
+<script src="https://files.worldwind.arc.nasa.gov/artifactory/web/0.9.0/worldwind.min.js"></script>
+
+    <script>
+        window.onload = function () {
+            var wwd = new WorldWind.WorldWindow("canvasOne");
+
+            // Configura o WorldWind para projeção 2D
+            wwd.globe.projection = new WorldWind.ProjectionMercator();
+
+            // Adiciona uma camada de imagens de satélite
+            var bmngLayer = new WorldWind.BMNGLayer();
+            wwd.addLayer(bmngLayer);
+
+            // Adiciona uma camada de ruas e nomes de cidades
+            var bingRoadsLayer = new WorldWind.BingRoadsLayer();
+            wwd.addLayer(bingRoadsLayer);
+
+            // Adiciona uma camada com fronteiras políticas
+            var boundariesLayer = new WorldWind.BingAerialWithLabelsLayer();
+            wwd.addLayer(boundariesLayer);
+
+            // Adiciona coordenadas geográficas na tela
+            var coordinatesLayer = new WorldWind.CoordinatesDisplayLayer(wwd);
+            wwd.addLayer(coordinatesLayer);
+
+            // Adiciona controle de navegação
+            var viewControlsLayer = new WorldWind.ViewControlsLayer(wwd);
+            wwd.addLayer(viewControlsLayer);
+
+            // Camada para adicionar os pins (placemarks)
+            var placemarkLayer = new WorldWind.RenderableLayer("Placemarks");
+            wwd.addLayer(placemarkLayer);
+
+            // Variável para armazenar o último placemark
+            var lastPlacemark = null;
+
+            // Função para adicionar um pin (placemark) no mapa
+            function addPin(latitude, longitude) {
+                // Remove o último placemark se existir
+                if (lastPlacemark !== null) {
+                    placemarkLayer.removeRenderable(lastPlacemark);
+                }
+
+                // Cria um ícone de placemark (pin)
+                var placemarkAttributes = new WorldWind.PlacemarkAttributes(null);
+                placemarkAttributes.imageSource = WorldWind.configuration.baseUrl + "images/pushpins/plain-red.png"; // Ícone de pin
+                placemarkAttributes.imageScale = 0.5;
+                
+                // Desativa o ajuste de escala baseado na distância do olho
+                placemarkAttributes.eyeDistanceScaling = false;
+
+                // Cria um placemark na localização dada
+                var placemarkPosition = new WorldWind.Position(latitude, longitude, 0); // Altitude 0 (ao nível do mar)
+                var placemark = new WorldWind.Placemark(placemarkPosition, false, placemarkAttributes);
+
+                // Armazena o placemark atual como o último
+                lastPlacemark = placemark;
+
+                // Adiciona o placemark à camada
+                placemarkLayer.addRenderable(placemark);
+
+                // Re-desenha o WorldWind para exibir o novo placemark
+                wwd.redraw();
+            }
+
+            // Função para capturar o evento de clique
+            wwd.addEventListener("click", function (event) {
+                // Obtém as coordenadas do clique no canvas
+                var x = event.clientX;
+                var y = event.clientY;
+
+                // Converte a posição do clique para coordenadas geográficas
+                var pickList = wwd.pick(wwd.canvasCoordinates(x, y));
+                if (pickList.objects.length > 0) {
+                    var pickedLocation = pickList.objects[0].position;
+
+                    if (pickedLocation) {
+                        var latitude = pickedLocation.latitude;
+                        var longitude = pickedLocation.longitude;
+
+                        // Adiciona um pin na posição clicada
+                        addPin(latitude, longitude);
+                    }
+                }
+            });
+        };
+    </script>

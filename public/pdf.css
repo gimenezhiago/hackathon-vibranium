@@ -8,7 +8,7 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    margin: 30px;
+    margin: 1.875rem;
 }
 
 h1{
@@ -16,7 +16,7 @@ h1{
 }
 
 .logo{
-    width: 200px;
+    width: 12.5rem;
     align-items: flex-start;
 }
 
@@ -31,8 +31,8 @@ hr{
 }
 
 .svg{
-    width: 40px;
-    margin: 0 10px 0 0;
+    width: 2.5rem;
+    margin: 0 .625rem 0 0;
 }
 
 h2{
@@ -45,30 +45,22 @@ h3{
 }
 
 .divParametro{
-    margin: 30px 0 30px 50px;
+    margin: 1.875rem 0 1.875rem 3.125rem;
 }
 
 .parametro{
-    font-size: 20px;
-    margin: 5px 0;
+    font-size: 1.25rem;
+    margin: .3125rem 0;
 }
 
 .divSugestao{
     display: flex;
     flex-direction: column;
-    margin:50px;
-    font-size: 20px;
-<<<<<<< Updated upstream
-}
-=======
+    margin:3.125rem;
+    font-size: 1.25rem;
 }
 
-button{
-    padding: 20px;
-    border-radius: 20px;
-    columns: white;
-    background-color: forestgreen;
-    font-weight: bolder;
-    border: none;
+select {
+    margin-top: 4rem;
+    height: 2rem;
 }
->>>>>>> Stashed changes

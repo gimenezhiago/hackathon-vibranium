@@ -25,3 +25,11 @@ body {
     font-size: 22px;
     font-family: "Roboto Mono", monospace;
 }
+.container{
+    padding: 0;
+}
+
+#canvasOne{
+    height: 100%;
+    width: 100%;
+}
