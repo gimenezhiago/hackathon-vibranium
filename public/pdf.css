@@ -58,4 +58,17 @@ h3{
     flex-direction: column;
     margin:50px;
     font-size: 20px;
+<<<<<<< Updated upstream
 }
+=======
+}
+
+button{
+    padding: 20px;
+    border-radius: 20px;
+    columns: white;
+    background-color: forestgreen;
+    font-weight: bolder;
+    border: none;
+}
+>>>>>>> Stashed changes

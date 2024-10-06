@@ -37,6 +37,9 @@ app.get('/map', (req, res) => {
     res.render('map')
 });
 
+app.get("/relatorio", (req,res)=>{
+    res.render("relatorio")
+})
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
