@@ -30,6 +30,7 @@ body {
     background: var(--branco);
     padding: 25px;
     gap: 1rem;
+    justify-content: center;
 }
 
 .container .container-dashboard1 {
@@ -105,8 +106,4 @@ body {
     width: 20rem;
     border: 2px solid black;
     margin: 5px;
-}
-.container > div:last-child{
-    display: flex;
-    
 }
