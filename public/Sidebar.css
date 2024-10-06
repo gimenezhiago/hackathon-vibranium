@@ -67,3 +67,15 @@ p a:hover {
     gap: 2.1875rem;
     margin-right: 50px;
 }
+
+footer {
+    border-top: transparent;
+    height: 20vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 17px;
+    background-color: var(--preto);
+    color: var(--branco);
+}
