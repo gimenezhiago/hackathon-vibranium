@@ -10,6 +10,7 @@
 body {
     width: 100vw;
     height: 100vh;
+    overflow: hidden;
 }
 
 * {
@@ -21,9 +22,10 @@ body {
 }
 
 .container {
+    overflow-x: hidden;
+    overflow-y: auto;
     height: 90vh;
     display: flex;
-    flex-direction: column;
     flex-wrap: wrap;
     background: var(--branco);
     padding: 25px;
@@ -103,4 +105,8 @@ body {
     width: 20rem;
     border: 2px solid black;
     margin: 5px;
+}
+.container > div:last-child{
+    display: flex;
+    
 }
