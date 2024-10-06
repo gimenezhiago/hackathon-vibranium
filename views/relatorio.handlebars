@@ -1,7 +1,5 @@
-<<<<<<< Updated upstream
-=======
 <link rel="stylesheet" href="pdf.css">
->>>>>>> Stashed changes
+
 <div class="titulo">
     <h1>Relatório de Parâmetros Climáticos</h1>
 </div>
@@ -16,11 +14,13 @@
     <p class="parametro">Cobertura de nuvens: <b id="nuvens"></b></p>
     <p class="parametro">Intensidade da chuva: <b id="chuva"></b></p>
 </div>
+
 <select name="cultura" id="cultura">
     <option value="safra">Milho Safra</option>
     <option value="safrinha">Milho Safrinha</option>
     <option value="soja">Soja</option>
 </select>
+
 <div class="divSugestoes">
     <h2>Parâmetros ideais para:</h2>
     <div class="divSugestao">
@@ -36,9 +36,11 @@
         <p class="txtSugestao" id="pulverizacaoSugestao"></p>
     </div>
 </div>
+
 <div style="text-align: center; margin-top: 20px;">
     <button id="imprimirBtn" onclick="imprimirRelatorio()">Imprimir Relatório</button>
 </div>
+
 <script>
     function atualizarRelatorio(temperatura, precipitacao, umidade, vento, nuvens, chuva) {
         document.getElementById('temperatura').innerText = `${temperatura}°C`;
@@ -47,31 +49,39 @@
         document.getElementById('vento').innerText = `${vento} km/h`;
         document.getElementById('nuvens').innerText = `${nuvens}%`;
         document.getElementById('chuva').innerText = chuva;
+
         let sugestaoPlantio = '';
         let sugestaoColheita = '';
         let sugestaoPulverizacao = '';
+
         if (temperatura >= 18 && temperatura <= 30 && precipitacao <= 10 && umidade >= 60 && umidade <= 80 && vento < 10) {
             sugestaoPlantio = "As condições são ideais para o plantio: temperatura, umidade e velocidade do vento adequadas.";
         } else {
             sugestaoPlantio = "As condições não são totalmente ideais para o plantio. Verifique temperatura, vento e umidade.";
         }
+
         if (temperatura >= 15 && temperatura <= 25 && precipitacao === 0 && umidade < 60 && vento <= 20) {
             sugestaoColheita = "Condições adequadas para colheita: temperatura, vento moderado e umidade controlada.";
         } else {
             sugestaoColheita = "As condições não são ideais para a colheita. Especialmente verifique a precipitação e umidade.";
         }
+
         if (temperatura >= 15 && temperatura <= 25 && precipitacao === 0 && umidade >= 50 && umidade <= 70 && vento < 10) {
             sugestaoPulverizacao = "As condições são ideais para pulverizações: sem chuvas e vento fraco.";
         } else {
             sugestaoPulverizacao = "As condições não são totalmente ideais para pulverizações. Verifique temperatura, vento e umidade.";
         }
+
         document.getElementById('plantioSugestao').innerText = sugestaoPlantio;
         document.getElementById('colheitaSugestao').innerText = sugestaoColheita;
         document.getElementById('pulverizacaoSugestao').innerText = sugestaoPulverizacao;
     }
+
     function imprimirRelatorio() {
         document.getElementById('imprimirBtn').style.display = 'none';
         window.print();
+        document.getElementById('imprimirBtn').style.display = 'block'; // Retorna o botão após a impressão
     }
+
     atualizarRelatorio(24, 2, 65, 8, 40, 'Nenhuma');
 </script>
