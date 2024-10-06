@@ -107,3 +107,17 @@ body {
     border: 2px solid black;
     margin: 5px;
 }
+
+button{
+    border-radius: 0.625rem;
+    border: transparent;
+    height: 3rem;
+    width: 8rem;
+    background-color: var(--verde-escuro);
+    cursor: pointer;
+}
+
+button img {
+    height: 1.2rem;
+    width: 1.2rem;
+}
