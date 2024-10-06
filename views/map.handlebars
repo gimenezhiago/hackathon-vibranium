@@ -48,29 +48,25 @@
 </style>
 
 <script>
-    window.onload = function () {
+window.onload = function () {
     var wwd = new WorldWind.WorldWindow("canvasOne");
 
     // Configura o WorldWind para projeção 2D
     wwd.globe.projection = new WorldWind.ProjectionMercator();
 
-    // Adiciona uma camada de imagens de satélite
+    // Adiciona camadas de imagens e dados geográficos
     var bmngLayer = new WorldWind.BMNGLayer();
     wwd.addLayer(bmngLayer);
 
-    // Adiciona uma camada de ruas e nomes de cidades
     var bingRoadsLayer = new WorldWind.BingRoadsLayer();
     wwd.addLayer(bingRoadsLayer);
 
-    // Adiciona uma camada com fronteiras políticas
     var boundariesLayer = new WorldWind.BingAerialWithLabelsLayer();
     wwd.addLayer(boundariesLayer);
 
-    // Adiciona coordenadas geográficas na tela
     var coordinatesLayer = new WorldWind.CoordinatesDisplayLayer(wwd);
     wwd.addLayer(coordinatesLayer);
 
-    // Adiciona controle de navegação
     var viewControlsLayer = new WorldWind.ViewControlsLayer(wwd);
     wwd.addLayer(viewControlsLayer);
 
@@ -88,28 +84,29 @@
             placemarkLayer.removeRenderable(lastPlacemark);
         }
 
-        // Cria um ícone de placemark (pin)
+        // Cria os atributos do placemark (pin)
         var placemarkAttributes = new WorldWind.PlacemarkAttributes(null);
-        placemarkAttributes.imageSource = WorldWind.configuration.baseUrl + "images/pushpins/plain-red.png"; // Ícone de pin
-        placemarkAttributes.imageScale = 0.5;
+        placemarkAttributes.imageSource = WorldWind.configuration.baseUrl + "images/pushpins/plain-red.png";
+        placemarkAttributes.imageScale = 0.5; // Escala do pin
+        placemarkAttributes.imageOffset = new WorldWind.Offset(
+            WorldWind.OFFSET_FRACTION, 0.5, // Centraliza horizontalmente
+            WorldWind.OFFSET_FRACTION, 1.0 // Base do pino no ponto
+        );
+        placemarkAttributes.eyeDistanceScaling = false; // Desativa ajuste por distância
 
-        // Desativa o ajuste de escala baseado na distância do olho
-        placemarkAttributes.eyeDistanceScaling = false;
-
-        // Cria um placemark na localização dada
-        var placemarkPosition = new WorldWind.Position(latitude, longitude, 0); // Altitude 0 (ao nível do mar)
+        // Cria o placemark na localização especificada
+        var placemarkPosition = new WorldWind.Position(latitude, longitude, 0); 
         var placemark = new WorldWind.Placemark(placemarkPosition, false, placemarkAttributes);
 
-        // Garante que o placemark sempre esteja visível, mesmo ao dar zoom
-        placemark.alwaysOnTop = true;
+        placemark.alwaysOnTop = true; // Garante que o placemark sempre esteja visível
 
-        // Armazena o placemark atual como o último
+        // Armazena o placemark atual
         lastPlacemark = placemark;
 
         // Adiciona o placemark à camada
         placemarkLayer.addRenderable(placemark);
 
-        // Redesenha o WorldWind para exibir o novo placemark
+        // Redesenha o mapa
         wwd.redraw();
     }
 
@@ -117,7 +114,6 @@
     function searchAddress() {
         var query = document.getElementById('searchInput').value;
 
-        // Realiza a requisição à API Nominatim
         if (query.length > 3) { // Mínimo de caracteres para pesquisa
             fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}`)
                 .then(response => response.json())
@@ -131,17 +127,16 @@
                         addressItem.innerHTML = result.display_name;
                         addressItem.style.cursor = "pointer";
                         addressItem.onclick = function() {
-                            // Centraliza o mapa e adiciona um pin nas coordenadas
                             var latitude = parseFloat(result.lat);
                             var longitude = parseFloat(result.lon);
+                            console.log(document.getElementById('sidebar').querySelector('.DB'))
+                            document.getElementById('sidebar').querySelector('.DB').href = `/dashboard?lat=${latitude}&long=${longitude}`
 
                             addPin(latitude, longitude);
 
-                            // Definir um zoom mais próximo ao lugar pesquisado
-                            var zoomLevel = 5000; // Altitude em metros (ajuste conforme necessário)
-                            var location = new WorldWind.Position(latitude, longitude, zoomLevel);
-
-                            wwd.goTo(location);
+                            // Configura o zoom durante o movimento para a localização
+                            var zoomLevel = 5000; // Altitude ajustada para dar zoom
+                            wwd.goTo(new WorldWind.Position(latitude, longitude, zoomLevel));
                         };
                         searchResults.appendChild(addressItem);
                     });
@@ -152,6 +147,20 @@
 
     // Adiciona evento de busca no campo de pesquisa
     document.getElementById('searchInput').addEventListener('input', searchAddress);
+
+    // Adiciona evento de clique no canvas para adicionar um pin
+    wwd.addEventListener("click", function(event) {
+        // Obtém a posição do mouse e converte para coordenadas geográficas
+        var pickRay = wwd.mousePosition;
+        var position = wwd.pick(pickRay);
+
+        if (position) {
+            var latitude = position.latitude;
+            var longitude = position.longitude;
+            
+            addPin(latitude, longitude);
+        }
+    });
 };
 
 </script>
