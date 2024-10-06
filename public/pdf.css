@@ -1,0 +1,74 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.titulo{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 30px;
+}
+
+h1{
+    text-align: center;
+}
+
+.logo{
+    width: 200px;
+    align-items: flex-start;
+}
+
+.hr{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+hr{
+    width: 95vw;
+}
+
+.svg{
+    width: 40px;
+    margin: 0 10px 0 0;
+}
+
+h2{
+    text-align: center;
+}
+
+h3{
+    display: flex;
+    align-items: center;
+}
+
+.divParametro{
+    margin: 30px 0 30px 50px;
+}
+
+.parametro{
+    font-size: 20px;
+    margin: 5px 0;
+}
+
+.divSugestao{
+    display: flex;
+    flex-direction: column;
+    margin:50px;
+    font-size: 20px;
+<<<<<<< Updated upstream
+}
+=======
+}
+
+button{
+    padding: 20px;
+    border-radius: 20px;
+    columns: white;
+    background-color: forestgreen;
+    font-weight: bolder;
+    border: none;
+}
+>>>>>>> Stashed changes
