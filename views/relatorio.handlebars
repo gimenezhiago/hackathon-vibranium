@@ -15,9 +15,10 @@
     <p class="parametro">Intensidade da chuva: <b id="chuva"></b></p>
 </div>
 
-<select name="cultura" id="cultura">
-    <option value="safra">Milho Safra</option>
-    <option value="safrinha">Milho Safrinha</option>
+<select name="cultura" id="cultura" onchange="verificarCultura()">
+    <option value="">Selecione uma cultura</option>
+    <option value="milhoSafra">Milho Safra</option>
+    <option value="milhoSafrinha">Milho Safrinha</option>
     <option value="soja">Soja</option>
 </select>
 
@@ -38,6 +39,36 @@
 </div>
 
 <script>
+    const parametrosClimaticos = {
+        temperatura: 24,
+        precipitacao: 2,
+        umidade: 65,
+        vento: 8,
+        nuvens: 40,
+        chuva: 'Nenhuma'
+    };
+
+    const epocas = {
+        milhoSafra: { plantioInicio: 9, plantioFim: 12, colheitaInicio: 3, colheitaFim: 6 },
+        milhoSafrinha: { plantioInicio: 1, plantioFim: 3, colheitaInicio: 6, colheitaFim: 8 },
+        soja: { plantioInicio: 10, plantioFim: 12, colheitaInicio: 3, colheitaFim: 5 }
+    };
+
+    function obterMesAtual() {
+        const dataAtual = new Date();
+        return dataAtual.getMonth() + 1;
+    }
+
+    function verificarEpoca(cultura) {
+        const mesAtual = obterMesAtual();
+        const epoca = epocas[cultura];
+
+        const plantioCerto = mesAtual >= epoca.plantioInicio && mesAtual <= epoca.plantioFim;
+        const colheitaCerta = mesAtual >= epoca.colheitaInicio && mesAtual <= epoca.colheitaFim;
+
+        return { plantioCerto, colheitaCerta };
+    }
+
     function atualizarRelatorio(temperatura, precipitacao, umidade, vento, nuvens, chuva) {
         document.getElementById('temperatura').innerText = `${temperatura}°C`;
         document.getElementById('precipitacao').innerText = `${precipitacao}mm`;
@@ -45,27 +76,76 @@
         document.getElementById('vento').innerText = `${vento} km/h`;
         document.getElementById('nuvens').innerText = `${nuvens}%`;
         document.getElementById('chuva').innerText = chuva;
+    }
+
+    function verificarCultura() {
+        const cultura = document.getElementById('cultura').value;
+        const { temperatura, precipitacao, umidade, vento } = parametrosClimaticos;
 
         let sugestaoPlantio = '';
         let sugestaoColheita = '';
         let sugestaoPulverizacao = '';
 
-        if (temperatura >= 18 && temperatura <= 30 && precipitacao <= 10 && umidade >= 60 && umidade <= 80 && vento < 10) {
-            sugestaoPlantio = "As condições são ideais para o plantio: temperatura, umidade e velocidade do vento adequadas.";
-        } else {
-            sugestaoPlantio = "As condições não são totalmente ideais para o plantio. Verifique temperatura, vento e umidade.";
+        const epoca = verificarEpoca(cultura);
+
+        if (cultura === 'milhoSafra') {
+            if (temperatura >= 18 && temperatura <= 30 && umidade >= 60 && vento < 10 && epoca.plantioCerto) {
+                sugestaoPlantio = "As condições são ideais para o plantio de Milho Safra.";
+            } else {
+                sugestaoPlantio = "As condições não são ideais para o plantio de Milho Safra ou não está na época certa.";
+            }
+
+            if (epoca.colheitaCerta) {
+                sugestaoColheita = "É uma boa época para colher o Milho Safra.";
+            } else {
+                sugestaoColheita = "Não está na época certa para colheita de Milho Safra.";
+            }
+
+            if (precipitacao < 5) {
+                sugestaoPulverizacao = "Condições favoráveis para irrigação no plantio de Milho Safra.";
+            } else {
+                sugestaoPulverizacao = "Não é necessário irrigar devido às boas condições de precipitação.";
+            }
         }
 
-        if (temperatura >= 15 && temperatura <= 25 && precipitacao === 0 && umidade < 60 && vento <= 20) {
-            sugestaoColheita = "Condições adequadas para colheita: temperatura, vento moderado e umidade controlada.";
-        } else {
-            sugestaoColheita = "As condições não são ideais para a colheita. Especialmente verifique a precipitação e umidade.";
+        if (cultura === 'milhoSafrinha') {
+            if (temperatura >= 15 && temperatura <= 28 && umidade >= 55 && vento < 15 && epoca.plantioCerto) {
+                sugestaoPlantio = "As condições são ideais para o plantio de Milho Safrinha.";
+            } else {
+                sugestaoPlantio = "As condições não são ideais para o plantio de Milho Safrinha ou não está na época certa.";
+            }
+
+            if (epoca.colheitaCerta) {
+                sugestaoColheita = "É uma boa época para colher o Milho Safrinha.";
+            } else {
+                sugestaoColheita = "Não está na época certa para colheita de Milho Safrinha.";
+            }
+
+            if (precipitacao < 5) {
+                sugestaoPulverizacao = "Condições favoráveis para irrigação no plantio de Milho Safrinha.";
+            } else {
+                sugestaoPulverizacao = "Não é necessário irrigar devido às boas condições de precipitação.";
+            }
         }
 
-        if (temperatura >= 15 && temperatura <= 25 && precipitacao === 0 && umidade >= 50 && umidade <= 70 && vento < 10) {
-            sugestaoPulverizacao = "As condições são ideais para pulverizações: sem chuvas e vento fraco.";
-        } else {
-            sugestaoPulverizacao = "As condições não são totalmente ideais para pulverizações. Verifique temperatura, vento e umidade.";
+        if (cultura === 'soja') {
+            if (temperatura >= 20 && temperatura <= 32 && umidade >= 60 && vento < 10 && epoca.plantioCerto) {
+                sugestaoPlantio = "As condições são ideais para o plantio de Soja.";
+            } else {
+                sugestaoPlantio = "As condições não são ideais para o plantio de Soja ou não está na época certa.";
+            }
+
+            if (epoca.colheitaCerta) {
+                sugestaoColheita = "É uma boa época para colher a Soja.";
+            } else {
+                sugestaoColheita = "Não está na época certa para colheita de Soja.";
+            }
+
+            if (precipitacao < 5) {
+                sugestaoPulverizacao = "Condições favoráveis para irrigação no plantio de Soja.";
+            } else {
+                sugestaoPulverizacao = "Não é necessário irrigar devido às boas condições de precipitação.";
+            }
         }
 
         document.getElementById('plantioSugestao').innerText = sugestaoPlantio;
@@ -73,5 +153,5 @@
         document.getElementById('pulverizacaoSugestao').innerText = sugestaoPulverizacao;
     }
 
-    atualizarRelatorio(24, 2, 65, 8, 40, 'Nenhuma');
+    atualizarRelatorio(parametrosClimaticos.temperatura, parametrosClimaticos.precipitacao, parametrosClimaticos.umidade, parametrosClimaticos.vento, parametrosClimaticos.nuvens, parametrosClimaticos.chuva);
 </script>
