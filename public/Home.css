@@ -22,17 +22,42 @@
 }
 
 body {
-    height: 100vh;
     width: 100vw;
+    height: 200vh;
+}
+
+.page1{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.bem-vindo{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.page2{
+    width: 100vw;
+    height: 80vh;
+    padding: 2rem;
+}
+
+.page2 p{
+
 }
 
 .container {
     background: var(--cinza);
     height: 90vh;
+    width: 100vw;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    padding: 0;
 }
 
 .imagem {
@@ -41,11 +66,13 @@ body {
     max-width: 16rem;
     background-position: center;
     border-radius: 100%;
+    display: block;
 }
 
 .container p {
-    height: 10rem;
+    height: 2rem;
     width: 25rem;
+    display: block;
 }
 
 h2{
