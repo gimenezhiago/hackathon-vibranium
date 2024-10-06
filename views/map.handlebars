@@ -1,89 +1,156 @@
 <link rel="stylesheet" href="/Map.css">
 <canvas id="canvasOne"></canvas>
+
+<!-- Campo de busca de endereço -->
+<input id="searchInput" type="text" placeholder="Buscar endereço">
+<div id="searchResults"></div>
+
 <script src="https://files.worldwind.arc.nasa.gov/artifactory/web/0.9.0/worldwind.min.js"></script>
 
-    <script>
-        window.onload = function () {
-            var wwd = new WorldWind.WorldWindow("canvasOne");
+<style>
+    /* Estilo para a barra de pesquisa */
+    #searchInput {
+        position: absolute;
+        top: 11vh;
+        right: 20px;
+        padding: 10px;
+        width: 250px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        z-index: 1000; /* Mantém a barra de pesquisa acima do canvas */
+    }
 
-            // Configura o WorldWind para projeção 2D
-            wwd.globe.projection = new WorldWind.ProjectionMercator();
+    /* Estilo para os resultados da busca */
+    #searchResults {
+        position: absolute;
+        top: calc(11vh + 40px); /* Logo abaixo do campo de busca */
+        right: 20px;
+        width: 250px;
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        max-height: 200px;
+        overflow-y: auto;
+        z-index: 1000; /* Mantém os resultados acima do canvas */
+    }
 
-            // Adiciona uma camada de imagens de satélite
-            var bmngLayer = new WorldWind.BMNGLayer();
-            wwd.addLayer(bmngLayer);
+    /* Estilo para cada item de resultado */
+    #searchResults div {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        cursor: pointer;
+    }
 
-            // Adiciona uma camada de ruas e nomes de cidades
-            var bingRoadsLayer = new WorldWind.BingRoadsLayer();
-            wwd.addLayer(bingRoadsLayer);
+    #searchResults div:hover {
+        background-color: #f0f0f0;
+    }
+</style>
 
-            // Adiciona uma camada com fronteiras políticas
-            var boundariesLayer = new WorldWind.BingAerialWithLabelsLayer();
-            wwd.addLayer(boundariesLayer);
+<script>
+    window.onload = function () {
+    var wwd = new WorldWind.WorldWindow("canvasOne");
 
-            // Adiciona coordenadas geográficas na tela
-            var coordinatesLayer = new WorldWind.CoordinatesDisplayLayer(wwd);
-            wwd.addLayer(coordinatesLayer);
+    // Configura o WorldWind para projeção 2D
+    wwd.globe.projection = new WorldWind.ProjectionMercator();
 
-            // Adiciona controle de navegação
-            var viewControlsLayer = new WorldWind.ViewControlsLayer(wwd);
-            wwd.addLayer(viewControlsLayer);
+    // Adiciona uma camada de imagens de satélite
+    var bmngLayer = new WorldWind.BMNGLayer();
+    wwd.addLayer(bmngLayer);
 
-            // Camada para adicionar os pins (placemarks)
-            var placemarkLayer = new WorldWind.RenderableLayer("Placemarks");
-            wwd.addLayer(placemarkLayer);
+    // Adiciona uma camada de ruas e nomes de cidades
+    var bingRoadsLayer = new WorldWind.BingRoadsLayer();
+    wwd.addLayer(bingRoadsLayer);
 
-            // Variável para armazenar o último placemark
-            var lastPlacemark = null;
+    // Adiciona uma camada com fronteiras políticas
+    var boundariesLayer = new WorldWind.BingAerialWithLabelsLayer();
+    wwd.addLayer(boundariesLayer);
 
-            // Função para adicionar um pin (placemark) no mapa
-            function addPin(latitude, longitude) {
-                // Remove o último placemark se existir
-                if (lastPlacemark !== null) {
-                    placemarkLayer.removeRenderable(lastPlacemark);
-                }
+    // Adiciona coordenadas geográficas na tela
+    var coordinatesLayer = new WorldWind.CoordinatesDisplayLayer(wwd);
+    wwd.addLayer(coordinatesLayer);
 
-                // Cria um ícone de placemark (pin)
-                var placemarkAttributes = new WorldWind.PlacemarkAttributes(null);
-                placemarkAttributes.imageSource = WorldWind.configuration.baseUrl + "images/pushpins/plain-red.png"; // Ícone de pin
-                placemarkAttributes.imageScale = 0.5;
-                
-                // Desativa o ajuste de escala baseado na distância do olho
-                placemarkAttributes.eyeDistanceScaling = false;
+    // Adiciona controle de navegação
+    var viewControlsLayer = new WorldWind.ViewControlsLayer(wwd);
+    wwd.addLayer(viewControlsLayer);
 
-                // Cria um placemark na localização dada
-                var placemarkPosition = new WorldWind.Position(latitude, longitude, 0); // Altitude 0 (ao nível do mar)
-                var placemark = new WorldWind.Placemark(placemarkPosition, false, placemarkAttributes);
+    // Camada para adicionar os pins (placemarks)
+    var placemarkLayer = new WorldWind.RenderableLayer("Placemarks");
+    wwd.addLayer(placemarkLayer);
 
-                // Armazena o placemark atual como o último
-                lastPlacemark = placemark;
+    // Variável para armazenar o último placemark
+    var lastPlacemark = null;
 
-                // Adiciona o placemark à camada
-                placemarkLayer.addRenderable(placemark);
+    // Função para adicionar um pin (placemark) no mapa
+    function addPin(latitude, longitude) {
+        // Remove o último placemark, se houver
+        if (lastPlacemark !== null) {
+            placemarkLayer.removeRenderable(lastPlacemark);
+        }
 
-                // Re-desenha o WorldWind para exibir o novo placemark
-                wwd.redraw();
-            }
+        // Cria um ícone de placemark (pin)
+        var placemarkAttributes = new WorldWind.PlacemarkAttributes(null);
+        placemarkAttributes.imageSource = WorldWind.configuration.baseUrl + "images/pushpins/plain-red.png"; // Ícone de pin
+        placemarkAttributes.imageScale = 0.5;
 
-            // Função para capturar o evento de clique
-            wwd.addEventListener("click", function (event) {
-                // Obtém as coordenadas do clique no canvas
-                var x = event.clientX;
-                var y = event.clientY;
+        // Desativa o ajuste de escala baseado na distância do olho
+        placemarkAttributes.eyeDistanceScaling = false;
 
-                // Converte a posição do clique para coordenadas geográficas
-                var pickList = wwd.pick(wwd.canvasCoordinates(x, y));
-                if (pickList.objects.length > 0) {
-                    var pickedLocation = pickList.objects[0].position;
+        // Cria um placemark na localização dada
+        var placemarkPosition = new WorldWind.Position(latitude, longitude, 0); // Altitude 0 (ao nível do mar)
+        var placemark = new WorldWind.Placemark(placemarkPosition, false, placemarkAttributes);
 
-                    if (pickedLocation) {
-                        var latitude = pickedLocation.latitude;
-                        var longitude = pickedLocation.longitude;
+        // Garante que o placemark sempre esteja visível, mesmo ao dar zoom
+        placemark.alwaysOnTop = true;
 
-                        // Adiciona um pin na posição clicada
-                        addPin(latitude, longitude);
-                    }
-                }
-            });
-        };
-    </script>
+        // Armazena o placemark atual como o último
+        lastPlacemark = placemark;
+
+        // Adiciona o placemark à camada
+        placemarkLayer.addRenderable(placemark);
+
+        // Redesenha o WorldWind para exibir o novo placemark
+        wwd.redraw();
+    }
+
+    // Função de busca por endereço usando Nominatim
+    function searchAddress() {
+        var query = document.getElementById('searchInput').value;
+
+        // Realiza a requisição à API Nominatim
+        if (query.length > 3) { // Mínimo de caracteres para pesquisa
+            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}`)
+                .then(response => response.json())
+                .then(data => {
+                    var searchResults = document.getElementById('searchResults');
+                    searchResults.innerHTML = ""; // Limpa os resultados anteriores
+
+                    // Adiciona as recomendações de endereços
+                    data.forEach(function(result) {
+                        var addressItem = document.createElement("div");
+                        addressItem.innerHTML = result.display_name;
+                        addressItem.style.cursor = "pointer";
+                        addressItem.onclick = function() {
+                            // Centraliza o mapa e adiciona um pin nas coordenadas
+                            var latitude = parseFloat(result.lat);
+                            var longitude = parseFloat(result.lon);
+
+                            addPin(latitude, longitude);
+
+                            // Definir um zoom mais próximo ao lugar pesquisado
+                            var zoomLevel = 5000; // Altitude em metros (ajuste conforme necessário)
+                            var location = new WorldWind.Position(latitude, longitude, zoomLevel);
+
+                            wwd.goTo(location);
+                        };
+                        searchResults.appendChild(addressItem);
+                    });
+                })
+                .catch(error => console.log("Erro ao buscar o endereço: " + error));
+        }
+    }
+
+    // Adiciona evento de busca no campo de pesquisa
+    document.getElementById('searchInput').addEventListener('input', searchAddress);
+};
+
+</script>
