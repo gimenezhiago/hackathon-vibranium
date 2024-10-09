@@ -45,12 +45,15 @@
 
     function obterParametrosClimaticos() {
         parametrosClimaticos = {
-            temperatura: 19,
-            precipitacao: 3,
-            umidade: 30,
-            vento: 11,
-            nuvens: 40,
-            chuva: "Leve"
+            temperatura: {{data.values.temperatureAvg}},
+            tempMed: {{data.values.temperatureAvg}},
+            tempMax: {{data.values.temperatureMax}},
+            tempMindes: {{data.values.temperatureMin}},
+            precipitacao: {{data.values.precipitationProbabilityAvg}},
+            umidade: {{data.values.humidityAvg}},
+            vento: {{data.values.windSpeedAvg}},
+            nuvens: {{data.values.cloudCoverAvg}},
+            //chuva: {{data.values.rainAccumulationAvg}}
         };
     }
 
@@ -76,17 +79,18 @@
     }
 
     function atualizarRelatorio() {
-        const { temperatura, precipitacao, umidade, vento, nuvens, chuva } = parametrosClimaticos;
+        const { tempMed, tempMax, tempMindes, temperatura, precipitacao, umidade, vento, nuvens, chuva, } = parametrosClimaticos;
 
-        document.getElementById('temperatura').innerText = `${temperatura}°C`;
+        document.getElementById('temperatura').innerText = `${tempMed}°C`;
+        document.getElementById('tempMed').innerText = `${tempMed}°C`;
         document.getElementById('precipitacao').innerText = `${precipitacao}mm`;
         document.getElementById('umidade').innerText = `${umidade}%`;
         document.getElementById('vento').innerText = `${vento} km/h`;
         document.getElementById('nuvens').innerText = `${nuvens}%`;
-        document.getElementById('chuva').innerText = `${chuva}`;
-        document.getElementById('tempMax').innerText = `${tempMax}`;
-        document.getElementById('tempMed').innerText = `${tempMed}`;
-        document.getElementById('tempMin').innerText = `${tempMindes}`;
+        //document.getElementById('chuva').innerText = `${chuva}`;
+        document.getElementById('tempMax').innerText = `${tempMax}°C`;
+        document.getElementById('tempMin').innerText = `${tempMindes}°C`;
+        console.log(tempMindes, tempMax)
     }
 
     function verificarCultura() {

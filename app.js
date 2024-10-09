@@ -14,9 +14,9 @@ app.use(bodyParser.urlencoded({extended:false}));
 
 async function busca(lat, long) {
     console.log('fouhf')
-    const respone = await fetch(`https://api.tomorrow.io/v4/weather/forecast?location=${lat},${long}&apikey=LAMwoHLn1OwUgSGuAfX7oo9QBxRFVATF`)
+    const respone = await fetch(`https://api.tomorrow.io/v4/weather/forecast?location=${lat},${long}&apikey=EbMZ5fZpYQLR45NDGzcPkPlkwHUOkEgg`)
     const data = await respone.json()
-    return await data.timelines.hourly
+    return await data.timelines
     return null
 }
 app.get('/', (req, res) => {
@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
 });
 app.get('/dashboard', (req, res) => {
     busca(req.query.lat?req.query.lat:50,req.query.long?req.query.long:50).then((result) => {
-        res.render('dashboard',{data: result, lat: req.query.lat?req.query.lat:50, long: req.query.long?req.query.long:50})
+        res.render('dashboard',{data: result.hourly, lat: req.query.lat?req.query.lat:50, long: req.query.long?req.query.long:50})
         
     }).catch((err) => {
         
@@ -38,7 +38,13 @@ app.get('/map', (req, res) => {
 });
 
 app.get("/relatorio", (req,res)=>{
-    res.render("relatorio")
+    busca(req.query.lat?req.query.lat:50,req.query.long?req.query.long:50).then((result) => {
+        console.log(result.daily[0])
+        res.render('relatorio',{data: result.daily[0], lat: req.query.lat?req.query.lat:50, long: req.query.long?req.query.long:50})
+        
+    }).catch((err) => {
+        
+    });
 })
 
 const PORT = process.env.PORT || 8080;
